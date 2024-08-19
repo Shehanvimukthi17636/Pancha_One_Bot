@@ -9,39 +9,35 @@ cmd({
 async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
 try{
     
-let dec = `*🌐 SADIYA-MD විධාන මෙනුවයි.*
+let dec = `*🤖 ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐ 🤖*
 
-▁▁▁MAIN COMMANDS▁▁▁
+•••••••MAIN COMMAND•••••••
 
-*🕹️ Command - .alive*
-*🚀 බොට් ඔන්ලයින්ද බැලීම*
+*💫 Command - .alive*
+*🤖 බොට් ඔන්ලයින්ද බැලීම*
 
-*🕹️ Command - .menu*
-*🚀 බොට්ගෙ විධාන මෙනුව ලබාගැනීම*
+*💫 Command - .menu*
+*🤖 බොට්ගෙ විධාන මෙනුව ලබාගැනීම*
 
-*🕹️ Command - .song*
-*🚀 සිංදු බාගත කිරීම*
+*💫 Command - .song*
+*🤖 සිංදු බාගත කිරීම*
 
-*🕹️ Command - .video*
-*🚀 වීඩියෝ බාගත කිරීම*
+*💫 Command - .video*
+*🤖 වීඩියෝ බාගත කිරීම*
 
-*🕹️ Command - .video*
-*🚀 වීඩියෝ බාගත කිරීම*
-
-*🕹️ Command - .ai*
-
-*🚀 AI විධානයකි*
+*💫 Command - .ai*
+*🤖 AI විධානයකි*
 
 
-▁▁▁OWNER COMMANDS▁▁▁
+•••••••OWNER COMMAND•••••••
 
-*🕹️ Command - .restart*
-*🚀 Bot restart කරිමට*
+*🫅 Command - .restart*
+*🫅 Bot restart කරිමට*
 
-▁▁▁▁SADIYA MD▁▁▁▁
+•••••••៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐•••••••
 `
     
-await conn.sendMessage(from,{image:{url: `https://telegra.ph/file/3cef367ebfc7a45c10595.jpg`},caption:dec},{quoted:mek});
+await conn.sendMessage(from,{image:{url: `https://telegra.ph/file/385059cf39430775732c3.jpg`},caption:dec},{quoted:mek});
 
 }catch(e){
 console.log(e)
