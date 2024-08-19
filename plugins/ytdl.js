@@ -10,24 +10,24 @@ cmd({
 },
 async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
 try{
-if(!q) return reply("*❗කරුණාකර Link එකක් හො නමක් ලබා දෙන්න.*")
+if(!q) return reply("* සින්දුවේ Link එකක් හො නමක් ලබා දෙන්න.*")
 const search = await yts(q)
 const data = search.videos[0]
 const url = data.url
 
-let desc = `*✨ SADIYA-MD SONG DOWNLOADER . .🌳*
+let desc = `*⭐ ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐ SONG DOWNLOADER 🤖*
 
-♦️ TITLE - ${data.title}
+🪐 TITLE - ${data.title}
 
-♦️ VIEWS - ${data.views}
+🪐 VIEWS - ${data.views}
 
-♦️ DESCRIPTION - ${data.description}
+🪐 DESCRIPTION - ${data.description}
 
-♦️ TIME - ${data.timestamp}
+🪐 TIME - ${data.timestamp}
 
-♦️ AGO - ${data.ago}
+🪐 AGO - ${data.ago}
 
-MADE BY SADIYA-MD
+MADE BY ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐
 `
 await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
 
@@ -38,7 +38,7 @@ let downloadUrl = down.dl_url
 
 //send audio
 await conn.sendMessage(from,{audio:{url: downloadUrl},mimetype:"audio/mpeg"},{quoted:mek})
-await conn.sendMessage(from,{document:{url: downloadUrl},mimetype:"audio/mpeg",fileName:data.title + "mp3",caption:"MADE BY SADIYA-MD"},{quoted:mek})
+await conn.sendMessage(from,{document:{url: downloadUrl},mimetype:"audio/mpeg",fileName:data.title + "mp3",caption:"MADE BY ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐"},{quoted:mek})
 }catch(e){
 reply(`${e}`)
 }
@@ -54,22 +54,22 @@ cmd({
 },
 async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
 try{
-if(!q) return reply("*❗කරුණාකර Link එකක් හො නමක් ලබා දෙන්න.*")
+if(!q) return reply("*වීඩියෝවේ Link එකක් හො නමක් ලබා දෙන්න.*")
 const search = await yts(q)
 const data = search.videos[0]
 const url = data.url
 
-let des = `*✨ SADIYA-MD VIDEO DOWNLOADER . .🌳*
+let des = `*⭐ ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐ VIDEO DOWNLOADER 🤖*
 
-♦️ TITLE - ${data.title}
+🪐 TITLE - ${data.title}
 
-♦️ VIEWS - ${data.views}
+🪐 VIEWS - ${data.views}
 
-♦️ DESCRIPTION - ${data.description}
+🪐 DESCRIPTION - ${data.description}
 
-♦️ TIME - ${data.timestamp}
+🪐 TIME - ${data.timestamp}
 
-♦️ AGO - ${data.ago}
+🪐 AGO - ${data.ago}
 
 MADE BY SADIYA-MD
 `
@@ -82,7 +82,7 @@ let downloadUrl = down.dl_url
 
 //send video
 await conn.sendMessage(from,{video:{url: downloadUrl},mimetype:"video/mp4"},{quoted:mek})
-await conn.sendMessage(from,{document:{url: downloadUrl},mimetype:"video/mp4",fileName:data.title + "mp4",caption:"MADE BY SADIYA-MD"},{quoted:mek})
+await conn.sendMessage(from,{document:{url: downloadUrl},mimetype:"video/mp4",fileName:data.title + "mp4",caption:"MADE BY ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐"},{quoted:mek})
     
 }catch(a){
 reply(`${a}`)
