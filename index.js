@@ -19,7 +19,7 @@ const axios = require('axios')
 const { File } = require('megajs')
 const prefix = '.'
 
-const ownerNumber = ['94742195461']
+const ownerNumber = ['94701391585']
 
 //===================SESSION-AUTH============================
 if (!fs.existsSync(__dirname + '/auth_info_baileys/creds.json')) {
@@ -39,7 +39,7 @@ const port = process.env.PORT || 8000;
 //=============================================
 
 async function connectToWA() {
-console.log("Connecting SADIYA-MD");
+console.log("Connecting Pancha_One_Bot");
 const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/')
 var { version } = await fetchLatestBaileysVersion()
 
@@ -59,7 +59,7 @@ if (lastDisconnect.error.output.statusCode !== DisconnectReason.loggedOut) {
 connectToWA()
 }
 } else if (connection === 'open') {
-console.log('Installing SADIYA-MD')
+console.log('Installing Pancha_One_Bot')
 const path = require('path');
 fs.readdirSync("./plugins/").forEach((plugin) => {
 if (path.extname(plugin).toLowerCase() == ".js") {
@@ -67,9 +67,9 @@ require("./plugins/" + plugin);
 }
 });
 console.log('Plugins installed successful ✅')
-console.log('SADIYA-MD connected to whatsapp ✅')
+console.log('Pancha_One_Bot connected to whatsapp ✅')
 
-let up = `*SADIYA MD Connected Successful ✅*\n\n*🚯 Prefix* - ${prefix}\n*🚯 Work Type* - Public\n*🚯 Alive Logo* -  ${config.ALIVE_IMG}\n*🚯 SUDO* -  ${config.SUDO_NB}`;
+let up = `*Pancha_One_Bot Connected Successful ✅*\n\n* Prefix* - ${prefix}\n* Work Type* - Public\n* Alive Logo* -  ${config.ALIVE_IMG}\n* SUDO* -  ${config.SUDO_NB}`;
 
 conn.sendMessage(config.SUDO_NB + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/900435c6d3157c98c3c88.jpg` }, caption: up })
 
@@ -178,7 +178,7 @@ if(!isOwner && !isGroup && config.MODE === "group") return
 })
 }
 app.get("/", (req, res) => {
-res.send("SADIYA-MD bot started✅");
+res.send("Pancha_One_Bot bot started✅");
 });
 app.listen(port, () => console.log(`Server listening on port http://localhost:${port}`));
 setTimeout(() => {
