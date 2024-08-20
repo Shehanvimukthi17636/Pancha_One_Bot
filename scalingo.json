@@ -1,0 +1,9 @@
+{
+  "name": "pancha-one-bot",
+  "stack": "node-14",
+  "buildpacks": [
+    {
+      "url": "https://github.com/scalingo/scalingo-nodejs-buildpack"
+    }
+  ]
+}
