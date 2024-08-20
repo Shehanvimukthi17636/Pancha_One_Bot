@@ -1,90 +1,91 @@
-const {cmd , commands} = require('../command')
-const fg = require('api-dylux')
-const yts = require('yt-search')
+const {
+y2mate,
+  bot,
+  getBuffer,
+  // genButtonMessage,
+  addAudioMetaData,
+  yts,
+  generateList,
+} = require('../lib/')
+const ytIdRegex =
+  /(?:http(?:s|):\/\/|)(?:(?:www\.|)youtube(?:\-nocookie|)\.com\/(?:watch\?.*(?:|\&)v=|embed|shorts\/|v\/)|youtu\.be\/)([-_0-9A-Za-z]{11})/
 
-cmd({
-    pattern: "song",
-    desc: "download songs",
-    category: "download",
-    filename: __filename
-},
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-if(!q) return reply("* සින්දුවේ Link එකක් හො නමක් ලබා දෙන්න.*")
-const search = await yts(q)
-const data = search.videos[0]
-const url = data.url
+bot(
+  {
+    pattern: 'ytv ?(.*)',
+    fromMe: true,
+    desc: 'Download youtube video',
+    type: 'download',
+  },
+  async (message, match) => {
+    match = match || message.reply_message.text
+    if (!match) return await message.send('_Example : ytv url_')
+    if (match.startsWith('y2mate;')) {
+      const [_, q, id] = match.split(';')
+      const result = await y2mate.dl(id, 'video', q)
+      return await message.sendFromUrl(result, { quoted: message.data })
+    }
+    if (!ytIdRegex.test(match))
+      return await message.send('*Give me a yt link!*', {
+        quoted: message.data,
+      })
+    const vid = ytIdRegex.exec(match)
+    const { title, video, thumbnail, time } = await y2mate.get(vid[1])
+    const buttons = []
+    for (const q in video)
+      buttons.push({
+        text: `${q}(${video[q].fileSizeH || video[q].size})`,
+        id: `ytv y2mate;${q};${vid[1]}`,
+      })
+    if (!buttons.length)
+      return await message.send('*Not found*', {
+        quoted: message.quoted,
+      })
+    const list = generateList(buttons, title + `(${time})\n`, message.jid, message.participant)
+    if (list.type === 'text')
+      return await message.sendFromUrl(thumbnail, {
+        caption: '```' + list.message + '```',
+        buffer: false,
+      })
+    return await message.send(list.message, {}, list.type)
 
-let desc = `*⭐ ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐ SONG DOWNLOADER 🤖*
+    // return await message.send(
+    // 	await genButtonMessage(
+    // 		buttons,
+    // 		title,
+    // 		time,
+    // 		{ image: thumbnail },
+    // 		message
+    // 	),
+    // 	{},
+    // 	'button'
+    // )
+  }
+)
 
-🪐 TITLE - ${data.title}
-
-🪐 VIEWS - ${data.views}
-
-🪐 DESCRIPTION - ${data.description}
-
-🪐 TIME - ${data.timestamp}
-
-🪐 AGO - ${data.ago}
-
-MADE BY ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐
-`
-await conn.sendMessage(from,{image:{url: data.thumbnail},caption:desc},{quoted:mek});
-
-//download audio
-
-let down = await fg.yta(url)  
-let downloadUrl = down.dl_url
-
-//send audio
-await conn.sendMessage(from,{audio:{url: downloadUrl},mimetype:"audio/mpeg"},{quoted:mek})
-await conn.sendMessage(from,{document:{url: downloadUrl},mimetype:"audio/mpeg",fileName:data.title + "mp3",caption:"MADE BY ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐"},{quoted:mek})
-}catch(e){
-reply(`${e}`)
-}
-})
-
-//===========video-dl===========
-
-cmd({
-    pattern: "video",
-    desc: "download video",
-    category: "download",
-    filename: __filename
-},
-async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
-try{
-if(!q) return reply("*වීඩියෝවේ Link එකක් හො නමක් ලබා දෙන්න.*")
-const search = await yts(q)
-const data = search.videos[0]
-const url = data.url
-
-let des = `*⭐ ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐ VIDEO DOWNLOADER 🤖*
-
-🪐 TITLE - ${data.title}
-
-🪐 VIEWS - ${data.views}
-
-🪐 DESCRIPTION - ${data.description}
-
-🪐 TIME - ${data.timestamp}
-
-🪐 AGO - ${data.ago}
-
-MADE BY SADIYA-MD
-`
-await conn.sendMessage(from,{image:{url: data.thumbnail},caption:des},{quoted:mek});
-
-//download video
-
-let down = await fg.ytv(url)  
-let downloadUrl = down.dl_url
-
-//send video
-await conn.sendMessage(from,{video:{url: downloadUrl},mimetype:"video/mp4"},{quoted:mek})
-await conn.sendMessage(from,{document:{url: downloadUrl},mimetype:"video/mp4",fileName:data.title + "mp4",caption:"MADE BY ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐"},{quoted:mek})
-    
-}catch(a){
-reply(`${a}`)
-}
-})
+bot(
+  {
+    pattern: 'yta ?(.*)',
+    fromMe: true,
+    desc: 'Download youtube audio',
+    type: 'download',
+  },
+  async (message, match) => {
+    match = match || message.reply_message.text
+    if (!match) return await message.send('_Example : yta darari/yt url_')
+    const vid = ytIdRegex.exec(match)
+    if (vid) match = vid[1]
+    const [video] = await yts(match, !!vid)
+    const { title, thumbnail, id } = video
+    const audio = await y2mate.get(id)
+    const result = await y2mate.dl(id, 'audio')
+    if (!result) return await message.send(`_not found._`, { quoted: message.data })
+    const { buffer } = await getBuffer(result)
+    if (!buffer) return await message.send(result, { quoted: message.data })
+    return await message.send(
+      await addAudioMetaData(buffer, title, '', '', thumbnail.url),
+      { quoted: message.data, mimetype: 'audio/mpeg' },
+      'audio'
+    )
+  }
+)
