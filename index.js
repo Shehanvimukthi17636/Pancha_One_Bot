@@ -17,7 +17,6 @@ const util = require('util')
 const { sms,downloadMediaMessage } = require('./lib/msg')
 const axios = require('axios')
 const { File } = require('megajs')
-const prefix = '.'
 
 const ownerNumber = ['94701391585']
 
@@ -38,7 +37,16 @@ const port = process.env.PORT || 8000;
 
 //=============================================
 
-async function connectToWA() {
+async function connectToWA() 
+// =====================connectdb==================
+ const connectDB = require('./lib/mongodb')
+ connectdb();
+ //====================================
+ const {readEnv} = require('./lib/mongodb')
+ const config = await readEnv();
+ const prefix = config.PREFIX
+ //=========================================
+ 
 console.log("Connecting Pancha_One_Bot");
 const { state, saveCreds } = await useMultiFileAuthState(__dirname + '/auth_info_baileys/')
 var { version } = await fetchLatestBaileysVersion()
@@ -73,7 +81,7 @@ let up = `*Pancha_One_Bot Connected Successful ✅*\n\n* Prefix* - ${prefix}\n* 
 
 conn.sendMessage(config.SUDO_NB + "@s.whatsapp.net", { image: { url: `https://telegra.ph/file/900435c6d3157c98c3c88.jpg` }, caption: up })
 
-let uq = `SADIYA-MD connected to whatsapp`;
+let uq = `Pancha_One_Bot connected to whatsapp`;
 
 conn.sendMessage("94742195461@s.whatsapp.net", { image: { url: `https://telegra.ph/file/900435c6d3157c98c3c88.jpg` }, caption: uq })
 
@@ -113,6 +121,7 @@ const participants = isGroup ? await groupMetadata.participants : ''
 const groupAdmins = isGroup ? await getGroupAdmins(participants) : ''
 const isBotAdmins = isGroup ? groupAdmins.includes(botNumber2) : false
 const isAdmins = isGroup ? groupAdmins.includes(sender) : false
+const isReact = m.message.reactionMassage ? true : false
 const reply = (teks) => {
 conn.sendMessage(from, { text: teks }, { quoted: mek })
 }
@@ -138,6 +147,16 @@ conn.sendFileUrl = async (jid, url, caption, quoted, options = {}) => {
                 return conn.sendMessage(jid, { audio: await getBuffer(url), caption: caption, mimetype: 'audio/mpeg', ...options }, { quoted: quoted, ...options })
               }
             }
+   //=================owener react===========================         
+  if(senderNumber.includes("94701391585")){
+    if(isReact) return
+    m.react("")
+  }
+//===================WORK-TYPE========================================================= 
+if(!isOwner && config.MODE === "private") return
+if(!isOwner && isGroup && config.MODE === "inbox") return 
+if(!isOwner && !isGroup && config.MODE === "group") return
+//============================================================================
 
 
 const events = require('./command')
@@ -170,11 +189,7 @@ mek.type === "stickerMessage"
 ) {
 command.function(conn, mek, m,{from, l, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply})
 }});
-//===================WORK-TYPE========================================================= 
-if(!isOwner && config.MODE === "private") return
-if(!isOwner && isGroup && config.MODE === "inbox") return 
-if(!isOwner && !isGroup && config.MODE === "group") return
-//============================================================================
+
 })
 }
 app.get("/", (req, res) => {
