@@ -1,46 +1,61 @@
+const {readEnv} = require ('../lib/database')
 const {cmd , commands} = require('../command')
 
 cmd({
     pattern: "menu",
-    desc: "menu the bot",
-    category: "menu",
+    desc: "get smd list",
+    category: "main",
     filename: __filename
 },
 async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
 try{
-    
-let dec = `*🤖 ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐ 🤖*
+  const config = await readEnv();
+let menu = {
+main: '',
+download: '',
+group: '',
+owner: '',
+convert: '',
+scarch: ''
+};
 
-•••••••MAIN COMMAND•••••••
+ for (let i = 0; i < commands.length; i++) {
+if (commands[i].pattern && !commands[i].dontAddCommandList) {
+menu[commands[i].category] += `${config.PREFIX}${commands[i].pattern}\n`;
+ }
+ }
 
-*💫 Command - .alive*
-*🤖 බොට් ඔන්ලයින්ද බැලීම*
+let madeMenu = `*Hello ${pushname} *`
+> *DOWNLOAD COMMANDS* ⬇️
+  
+${menu.download}
 
-*💫 Command - .menu*
-*🤖 බොට්ගෙ විධාන මෙනුව ලබාගැනීම*
+> *MAIN COMMANDS*🤖
 
-*💫 Command - .song*
-*🤖 සිංදු බාගත කිරීම*
+ ${menu.main}
 
-*💫 Command - .video*
-*🤖 වීඩියෝ බාගත කිරීම*
+> *GROUP COMMANDS*🌺
 
-*💫 Command - .ai*
-*🤖 AI විධානයකි*
+${menu.group}
 
+> *OWNER COMMANDS*🫅
 
-•••••••OWNER COMMAND•••••••
+${menu.owner}
 
-*🫅 Command - .restart*
-*🫅 Bot restart කරිමට*
+> *CONVERT COMMANDS*⭐
 
-•••••••៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐•••••••
-`
-    
-await conn.sendMessage(from,{image:{url: `https://telegra.ph/file/385059cf39430775732c3.jpg`},caption:dec},{quoted:mek});
+${menu.convert}
 
+> *SCARCH COMMANDS*🔍
+
+${menu.scarch}
+
+POWERD BY ៚⎈ᴘᴀͬɴͤᴄͣʜᷞᴀོᴼᴺᴱོʙᴏᴛ☬𝜈𝛊𝜌࿐
+.
+await conn.sendMessage(from.{image:{url:config.ALIVE_IMG},caption:madeMenu},{qouted:mek})
+
+  
+  
 }catch(e){
 console.log(e)
 reply(`${e}`)
-}
-})
