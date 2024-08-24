@@ -1,1 +1,20 @@
-function _0x1aab(){const _0x193f94=['main','ALIVE_IMG','../command','1010992OIXOOI','6252654HgUgGy','411TLPLii','sendMessage','12rQJaHe','9304323MEwHcj','../config','54ZWokFT','log','alive','37pXbLOt','Check\x20bot\x20online\x20or\x20no.','ALIVE_MSG','5DVUyjW','57863572YOStjT','14076yujmnS','48452mMRUaG','11cAdvoY','12694260AblHkS'];_0x1aab=function(){return _0x193f94;};return _0x1aab();}function _0x8bdd(_0x1c5ae0,_0x3cb9d2){const _0x1aab28=_0x1aab();return _0x8bdd=function(_0x8bddd2,_0x5ce766){_0x8bddd2=_0x8bddd2-0x1c4;let _0x4af996=_0x1aab28[_0x8bddd2];return _0x4af996;},_0x8bdd(_0x1c5ae0,_0x3cb9d2);}const _0x535f38=_0x8bdd;(function(_0x5a005f,_0x2f4b23){const _0x45cbd1=_0x8bdd,_0x1da4a2=_0x5a005f();while(!![]){try{const _0x1af1f7=parseInt(_0x45cbd1(0x1c6))/0x1*(-parseInt(_0x45cbd1(0x1cc))/0x2)+-parseInt(_0x45cbd1(0x1d4))/0x3*(parseInt(_0x45cbd1(0x1cb))/0x4)+-parseInt(_0x45cbd1(0x1c9))/0x5*(-parseInt(_0x45cbd1(0x1d3))/0x6)+-parseInt(_0x45cbd1(0x1d7))/0x7+parseInt(_0x45cbd1(0x1d2))/0x8*(-parseInt(_0x45cbd1(0x1d9))/0x9)+-parseInt(_0x45cbd1(0x1ce))/0xa*(parseInt(_0x45cbd1(0x1cd))/0xb)+-parseInt(_0x45cbd1(0x1d6))/0xc*(-parseInt(_0x45cbd1(0x1ca))/0xd);if(_0x1af1f7===_0x2f4b23)break;else _0x1da4a2['push'](_0x1da4a2['shift']());}catch(_0x21dde5){_0x1da4a2['push'](_0x1da4a2['shift']());}}}(_0x1aab,0xb9045));function hi(){const _0xc5f289=_0x8bdd;console[_0xc5f289(0x1c4)]('Hello\x20World!');}hi();const config=require(_0x535f38(0x1d8)),{cmd,commands}=require(_0x535f38(0x1d1));cmd({'pattern':_0x535f38(0x1c5),'desc':_0x535f38(0x1c7),'category':_0x535f38(0x1cf),'filename':__filename},async(_0xde5aab,_0x57294a,_0x3d8e10,{from:_0x28cb0f,quoted:_0x4dc0c7,body:_0x5d2cd4,isCmd:_0x57b902,command:_0x29a2fd,args:_0x1b3881,q:_0x13eb8d,isGroup:_0x5ca275,sender:_0x4c9e79,senderNumber:_0x57c074,botNumber2:_0x461dc8,botNumber:_0x3560a3,pushname:_0x3c3501,isMe:_0x2b3704,isOwner:_0x3b0d1b,groupMetadata:_0x34ad77,groupName:_0x325fb3,participants:_0x3e71b5,groupAdmins:_0x55dffa,isBotAdmins:_0x33f8ad,isAdmins:_0x283a16,reply:_0xe58e08})=>{const _0x24c843=_0x535f38;try{return await _0xde5aab[_0x24c843(0x1d5)](_0x28cb0f,{'image':{'url':config[_0x24c843(0x1d0)]},'caption':config[_0x24c843(0x1c8)]},{'quoted':_0x57294a});}catch(_0x5ea99d){console[_0x24c843(0x1c4)](_0x5ea99d),_0xe58e08(''+_0x5ea99d);}});
+const {readEnv} = require ('../lib/database')
+const {cmd , commands} = require('../command')
+
+cmd({
+    pattern: "alive",
+    desc: "Check bot online or no.",
+    category: "main",
+    filename: __filename
+},
+async(conn, mek, m,{from, quoted, body, isCmd, command, args, q, isGroup, sender, senderNumber, botNumber2, botNumber, pushname, isMe, isOwner, groupMetadata, groupName, participants, groupAdmins, isBotAdmins, isAdmins, reply}) => {
+try{
+const config = await readEnv();
+return await conn.sendMessage(from,{image: {url: config.ALIVE_IMG},caption: config.ALIVE_MSG},{quoted: mek})
+}catch(e){
+console.log(e)
+reply(`${e}`)
+}
+})
+
+
