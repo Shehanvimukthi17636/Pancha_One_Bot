@@ -40,7 +40,7 @@ const port = process.env.PORT || 8000;
 async function connectToWA() {
   // connectdb
  const connectDB = require('./lib/mongodb')
- connectdb();
+ connectDB();
  //====================================
  const {readEnv} = require('./lib/mongodb')
  const config = await readEnv();
